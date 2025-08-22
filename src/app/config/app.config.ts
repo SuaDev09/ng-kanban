@@ -12,7 +12,11 @@ import {
 import { routes } from '../app.routes';
 import { provideHttpClient } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
-import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { providePrimeNG } from 'primeng/config';
+import { MessageService } from 'primeng/api';
+
+import noirPreset from './theme.preset.config';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -23,7 +27,14 @@ export const appConfig: ApplicationConfig = {
     {
       provide: MessageService,
     },
-    
-    provideAnimations(),
+    provideAnimationsAsync(),
+    providePrimeNG({
+      theme: {
+        preset: noirPreset,
+        options: {
+          darkModeSelector: '.p-dark-mode',
+        },
+      },
+    }),
   ],
 };
