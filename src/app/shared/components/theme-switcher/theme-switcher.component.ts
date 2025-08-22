@@ -14,19 +14,17 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 export class ThemeSwitcherComponent {
   themeSelected = 'light'; // Default theme
   themeOptions: any[] = [
-    { icon: PrimeIcons.SUN, theme: 'light' },
-    { icon: PrimeIcons.MOON, theme: 'dark' },
+    { icon: PrimeIcons.SUN, theme: 'p-light-mode' },
+    { icon: PrimeIcons.MOON, theme: 'p-dark-mode' },
   ];
-
+  isDarkMode = false; // Initial theme state
   toggleDarkMode() {
-    // const element = document.querySelector('html');
-    // if (element) {
-    //   element.classList.toggle('p-dark-mode');
-    // }
-    const element = document.querySelector('html');
-    if (element) {
-      console.log(element.classList);
-      element.classList.toggle('p-dark-mode');
+    this.isDarkMode = !this.isDarkMode;
+    const element = document.documentElement;
+    if (this.isDarkMode) {
+      element.classList.add('p-dark-mode');
+    } else {
+      element.classList.remove('p-dark-mode');
     }
   }
 }
