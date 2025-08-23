@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { CurrentThemeService } from '@app/shared/services/current-theme/current-theme.service';
 import { PrimeIcons } from 'primeng/api';
 import { SelectButtonModule } from 'primeng/selectbutton';
 
@@ -12,6 +13,8 @@ import { SelectButtonModule } from 'primeng/selectbutton';
   styleUrl: './theme-switcher.component.css',
 })
 export class ThemeSwitcherComponent {
+  private readonly _currentThemeService = inject(CurrentThemeService);
+
   themeSelected = 'light'; // Default theme
   themeOptions: any[] = [
     { icon: PrimeIcons.SUN, theme: 'p-light-mode' },
@@ -23,8 +26,10 @@ export class ThemeSwitcherComponent {
     const element = document.documentElement;
     if (this.isDarkMode) {
       element.classList.add('p-dark-mode');
+      this._currentThemeService.setCurrentTheme('dark-theme');
     } else {
       element.classList.remove('p-dark-mode');
+      this._currentThemeService.setCurrentTheme('light-theme');
     }
   }
 }

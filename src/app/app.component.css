@@ -1,0 +1,12 @@
+.parent-container {
+  max-height: 100vh;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden; /* Prevent overflow */
+}
+
+app-sidebar {
+  flex-grow: 1;
+}
