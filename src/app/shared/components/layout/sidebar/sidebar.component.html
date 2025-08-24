@@ -3,14 +3,14 @@
   [class.expanded]="hasExpanded"
   [class.collapsed]="!hasExpanded"
   [style]="{
-    width: hasExpanded ? '250px' : '60px',
+    width: hasExpanded ? sidebarWidth : collapsedSidebarWidth,
     transition: 'width 0.25s ease-in-out, transform 0.25s ease-in-out',
   }"
 >
   <p-menu
     [style]="{
       height: '100%',
-      'min-width': hasExpanded ? '250px' : '60px',
+      'min-width': hasExpanded ? sidebarWidth : collapsedSidebarWidth,
       padding: 'var(--padding) var(--padding-sm) '
     }"
     [model]="items"
@@ -47,7 +47,11 @@
             [routerLinkActive]="'is-active'"
           >
             <!-- <span [class]="item.icon"></span> -->
-            <span>PA</span>
+            @if(item.abbreviation) {
+            <span class="abbreviation">{{ item.abbreviation }}</span>
+            } @else {
+            <i class="{{ item.icon }}"></i>
+            }
             <span *ngIf="hasExpanded">{{ item.label }}</span>
           </a>
         </nav>

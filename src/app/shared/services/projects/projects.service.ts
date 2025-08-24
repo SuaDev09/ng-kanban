@@ -33,7 +33,35 @@ export class ProjectsService {
   async getProjects(): Promise<void> {
     try {
       const projects = await this._projectsApiService.getProjects();
-      this._projects.next(projects.data || []);
+      this._projects.next(
+        projects.data || [
+          {
+            projectId: 1,
+            name: 'Project Alpha',
+            abbreviation: 'PA',
+          },
+          {
+            projectId: 2,
+            name: 'Project Beta',
+            abbreviation: 'PB',
+          },
+          {
+            projectId: 3,
+            name: 'Project Gamma',
+            abbreviation: 'PG',
+          },
+          {
+            projectId: 4,
+            name: 'Project Delta',
+            abbreviation: 'PD',
+          },
+          {
+            projectId: 5,
+            name: 'Project Epsilon',
+            abbreviation: 'PE',
+          },
+        ]
+      );
     } catch (error) {
       console.error('Failed to fetch projects:', error);
     }

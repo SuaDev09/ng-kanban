@@ -1,5 +1,5 @@
 export default interface Project {
-  projectId: string;
+  projectId: number;
   name: string;
   abbreviation?: string;
 }
