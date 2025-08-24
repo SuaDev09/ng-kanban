@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { ApiResponse } from '@app/core/models/api-response.model';
 import Project from '@app/core/models/project.model';
-import { ErrorHandlerService } from '@app/shared/service/error-handler/error-handler.service';
+import { ErrorHandlerService } from '@app/shared/services/error-handler/error-handler.service';
 import { catchError, firstValueFrom } from 'rxjs';
 
 /**
