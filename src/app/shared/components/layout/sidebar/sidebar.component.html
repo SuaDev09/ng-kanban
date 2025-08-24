@@ -1,32 +1,63 @@
-<p-panel
-  [showHeader]="true"
+<div
+  class="sidebar-container"
+  [class.expanded]="hasExpanded"
+  [class.collapsed]="!hasExpanded"
   [style]="{
-    height: '100%',
-    width: '250px',
+    width: hasExpanded ? '250px' : '60px',
+    transition: 'width 0.25s ease-in-out, transform 0.25s ease-in-out',
   }"
 >
-  <ng-template pTemplate="header">
-    <header class="header">
-      <div class="buttons">
-        <p-button icon="pi pi-caret-right" [outlined]="true" />
-        <p-button icon="pi pi-pen-to-square" [outlined]="true" />
-      </div>
-    </header>
-  </ng-template>
-  <aside class="sidebar">
-    <nav class="sidebar-nav">
-      <ul>
-        <li><a href="#dashboard">Dashboard</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#teams">Teams</a></li>
-        <li><a href="#calendar">Calendar</a></li>
-        <li><a href="#settings">Settings</a></li>
-        <li><a href="#logout">Logout</a></li>
-      </ul>
-    </nav>
-    <footer class="sidebar-footer">
-      <i class="pi pi-linkedin" style="font-size: 2rem"></i>
-      <p>&copy; 2025 Suadev</p>
-    </footer>
-  </aside>
-</p-panel>
+  <p-menu
+    [style]="{
+      height: '100%',
+      'min-width': hasExpanded ? '250px' : '60px',
+      padding: 'var(--padding) var(--padding-sm) '
+    }"
+    [model]="items"
+  >
+    <ng-template pTemplate="start">
+      <header class="header">
+        <div class="buttons">
+          <p-button
+            [icon]="hasExpanded ? 'pi pi-caret-left' : 'pi pi-caret-right'"
+            [outlined]="true"
+            [style]="
+              hasExpanded
+                ? {}
+                : {
+                    margin: '0 auto',
+                  }
+            "
+            (click)="toggleSidebar()"
+          />
+          <p-button
+            icon="pi pi-pen-to-square"
+            *ngIf="hasExpanded"
+            [outlined]="true"
+          ></p-button>
+        </div>
+      </header>
+    </ng-template>
+    <ng-template pTemplate="item" let-item>
+      <aside class="sidebar">
+        <nav class="sidebar-nav">
+          <a
+            class="item-sidebar p-menu-item-link"
+            [routerLink]="item.routerLink"
+            [routerLinkActive]="'is-active'"
+          >
+            <!-- <span [class]="item.icon"></span> -->
+            <span>PA</span>
+            <span *ngIf="hasExpanded">{{ item.label }}</span>
+          </a>
+        </nav>
+      </aside>
+    </ng-template>
+    <ng-template pTemplate="end">
+      <footer class="sidebar-footer" *ngIf="hasExpanded">
+        <i class="pi pi-linkedin" style="font-size: 2rem"></i>
+        <p>&copy; 2025 Suadev</p>
+      </footer>
+    </ng-template>
+  </p-menu>
+</div>
