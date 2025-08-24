@@ -1,0 +1,27 @@
+[
+    {
+        "projectId": 1,
+        "projectName": "Project Alpha",
+        "abbreviation": "PA"
+    },
+    {
+        "projectId": 2,
+        "projectName": "Project Beta",
+        "abbreviation": "PB"
+    },
+    {
+        "projectId": 3,
+        "projectName": "Project Gamma",
+        "abbreviation": "PG"
+    },
+    {
+        "projectId": 4,
+        "projectName": "Project Delta",
+        "abbreviation": "PD"
+    },
+    {
+        "projectId": 5,
+        "projectName": "Project Epsilon",
+        "abbreviation": "PE"
+    }
+]

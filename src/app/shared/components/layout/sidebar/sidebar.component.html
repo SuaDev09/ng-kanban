@@ -1,18 +1,19 @@
 <p-panel
-  [showHeader]="false"
+  [showHeader]="true"
   [style]="{
     height: '100%',
     width: '250px',
-    padding: '0.825rem',
   }"
 >
-  <aside class="sidebar">
-    <header class="sidebar-header">
+  <ng-template pTemplate="header">
+    <header class="header">
       <div class="buttons">
         <p-button icon="pi pi-caret-right" [outlined]="true" />
         <p-button icon="pi pi-pen-to-square" [outlined]="true" />
       </div>
     </header>
+  </ng-template>
+  <aside class="sidebar">
     <nav class="sidebar-nav">
       <ul>
         <li><a href="#dashboard">Dashboard</a></li>
