@@ -6,6 +6,7 @@ import { MessageService } from 'primeng/api';
 import { SidebarComponent } from './shared/components/layout/sidebar/sidebar.component';
 import { HeaderComponent } from './shared/components/layout/header/header.component';
 import { ProjectsService } from './shared/services/projects/projects.service';
+import { NewProjectComponent } from './shared/components/modals/new-project/new-project.component';
 
 /**
  * The root component of the application.
@@ -20,6 +21,7 @@ import { ProjectsService } from './shared/services/projects/projects.service';
     SidebarComponent,
     HeaderComponent,
     ToastModule,
+    NewProjectComponent,
   ],
   providers: [MessageService],
   templateUrl: './app.component.html',
