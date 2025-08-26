@@ -21,6 +21,9 @@
           <p-button
             [icon]="hasExpanded ? 'pi pi-caret-left' : 'pi pi-caret-right'"
             [outlined]="true"
+            [ngClass]="
+              hasExpanded ? 'item-sidebar-expanded' : 'item-sidebar-collapsed'
+            "
             [style]="
               hasExpanded
                 ? {}
@@ -42,7 +45,10 @@
       <aside class="sidebar">
         <nav class="sidebar-nav">
           <a
-            class="item-sidebar p-menu-item-link"
+            class="p-menu-item-link"
+            [ngClass]="
+              hasExpanded ? 'item-sidebar-expanded' : 'item-sidebar-collapsed'
+            "
             [routerLink]="item.routerLink"
             [routerLinkActive]="'is-active'"
           >

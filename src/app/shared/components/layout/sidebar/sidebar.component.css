@@ -18,13 +18,20 @@
 }
 
 /* Sidebar item styles */
-.item-sidebar {
+.item-sidebar-collapsed {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: var(--gap-sm);
+  align-items: center;
+  justify-content: center;
+}
+.item-sidebar-expanded {
   width: 100%;
   display: flex;
   flex-direction: row;
   gap: var(--gap-sm);
 }
-
 /* Utility classes */
 .classname {
   display: none;

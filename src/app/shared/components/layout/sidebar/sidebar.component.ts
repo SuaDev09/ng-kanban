@@ -1,4 +1,4 @@
-import { NgFor, NgIf, NgStyle } from '@angular/common';
+import { NgFor, NgIf, NgStyle, NgClass } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
@@ -18,6 +18,7 @@ import { ProjectsService } from '@app/shared/services/projects/projects.service'
     MenuModule,
     PanelModule,
     NgStyle,
+    NgClass,
   ],
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css'],
