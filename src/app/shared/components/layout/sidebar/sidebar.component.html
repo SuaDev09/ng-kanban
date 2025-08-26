@@ -37,7 +37,8 @@
             icon="pi pi-pen-to-square"
             *ngIf="hasExpanded"
             [outlined]="true"
-          ></p-button>
+            (click)="openNewProject()"
+          />
         </div>
       </header>
     </ng-template>

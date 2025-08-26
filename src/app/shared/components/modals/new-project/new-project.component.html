@@ -1,49 +1,75 @@
 <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
-  <div class="modal-header">
-    <h5 class="modal-title">Create New Project</h5>
-    <button type="button" class="close" (click)="onCancel()" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <div class="form-group">
-      <label for="projectName">Project Name</label>
-      <input
-        type="text"
-        id="projectName"
-        class="form-control"
-        formControlName="name"
-        placeholder="Enter project name"
-      />
-      <div
-        *ngIf="
-          projectForm.get('name')?.invalid && projectForm.get('name')?.touched
-        "
-        class="text-danger"
-      >
-        Project name is required.
+  <div class="modal">
+    <div class="modal-body">
+      <div class="input-text">
+        <label for="name">Project Name:</label>
+        <input
+          pInputText
+          type="text"
+          id="name"
+          class="form-control"
+          formControlName="name"
+          placeholder="Enter project name"
+        />
+        <p-message
+          severity="error"
+          *ngIf="
+            projectForm.get('name')?.touched &&
+            projectForm.get('name')?.hasError('required')
+          "
+          >Project name is required.</p-message
+        >
+      </div>
+
+      <div class="columns" formArrayName="columns">
+        <label>Columns:</label>
+        <div
+          class="column"
+          *ngFor="let control of columnArray.controls; let i = index"
+        >
+          <div class="column-group" formGroupName="{{ i }}">
+            <input
+              [style]="{
+                width: '100%'
+              }"
+              pInputText
+              [id]="i"
+              formControlName="columnName"
+            />
+            <p-button
+              icon="pi pi-times"
+              [text]="true"
+              *ngIf="i !== 0"
+              (click)="removeColumn(i)"
+            />
+          </div>
+          <p-message
+            severity="error"
+            *ngIf="
+              control.get('columnName')?.touched &&
+              control.get('columnName')?.hasError('required')
+            "
+            >Column name is required.</p-message
+          >
+        </div>
+        <p-button
+          [style]="{
+            width: '100%'
+          }"
+          icon="pi pi-plus"
+          severity="secondary"
+          label="Add Column"
+          (click)="addColumn()"
+        />
       </div>
     </div>
-    <div class="form-group">
-      <label for="projectDescription">Description</label>
-      <textarea
-        id="projectDescription"
-        class="form-control"
-        formControlName="description"
-        placeholder="Enter project description"
-      ></textarea>
+    <div class="modal-footer">
+      <p-button type="button" (click)="onCancel()"> Cancel </p-button>
+      <p-button
+        type="submit"
+        label="Create Project"
+        [disabled]="projectForm.invalid"
+      />
     </div>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" (click)="onCancel()">
-      Cancel
-    </button>
-    <button
-      type="submit"
-      class="btn btn-primary"
-      [disabled]="projectForm.invalid"
-    >
-      Create Project
-    </button>
   </div>
 </form>

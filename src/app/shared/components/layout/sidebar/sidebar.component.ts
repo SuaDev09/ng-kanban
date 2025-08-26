@@ -5,6 +5,8 @@ import { ButtonModule } from 'primeng/button';
 import { PanelModule } from 'primeng/panel';
 import { MenuModule } from 'primeng/menu';
 import { ProjectsService } from '@app/shared/services/projects/projects.service';
+import { DialogService } from 'primeng/dynamicdialog';
+import { NewProjectComponent } from '../../modals/new-project/new-project.component';
 
 @Component({
   selector: 'app-sidebar',
@@ -20,10 +22,12 @@ import { ProjectsService } from '@app/shared/services/projects/projects.service'
     NgStyle,
     NgClass,
   ],
+  providers: [DialogService],
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css'],
 })
 export class SidebarComponent implements OnInit {
+  private readonly _dialogService: DialogService = inject(DialogService);
   private readonly _projectsService: ProjectsService = inject(ProjectsService);
 
   readonly sidebarWidth = '250px';
@@ -53,5 +57,16 @@ export class SidebarComponent implements OnInit {
 
   toggleSidebar() {
     this.hasExpanded = !this.hasExpanded;
+  }
+
+  openNewProject() {
+    console.log('opsfs');
+    this._dialogService.open(NewProjectComponent, {
+      header: 'New Project',
+      width: '50vw',
+      modal: true,
+      closable: true,
+      contentStyle: { overflow: 'auto' },
+    });
   }
 }

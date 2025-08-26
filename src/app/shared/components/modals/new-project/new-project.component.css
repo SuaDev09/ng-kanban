@@ -1,0 +1,41 @@
+.modal {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-lg);
+}
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-lg);
+
+  .input-text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-md);
+  }
+
+  .columns {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-md);
+
+    .column {
+      display: flex;
+      flex-direction: column;
+      gap: var(--gap-md);
+
+      .column-group {
+        display: flex;
+        flex-direction: row;
+        gap: var(--gap-md);
+      }
+    }
+  }
+}
+
+.modal-footer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}

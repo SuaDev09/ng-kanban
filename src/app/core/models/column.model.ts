@@ -1,6 +1,6 @@
 import { BoardItem } from './board-item.model';
 
 export interface Column {
-  name: string;
+  columnName: string;
   boardItems: BoardItem[];
 }

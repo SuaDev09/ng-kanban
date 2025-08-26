@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import {
   FormArray,
@@ -9,12 +9,24 @@ import {
   Validators,
 } from '@angular/forms';
 import { ProjectBoard } from '@app/core/models/project-board.model';
+import { ButtonModule } from 'primeng/button';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { InputTextModule } from 'primeng/inputtext';
+import { TextareaModule } from 'primeng/textarea';
+import { MessageModule } from 'primeng/message';
 
 @Component({
   selector: 'app-new-project',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, NgIf],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    InputTextModule,
+    TextareaModule,
+    ButtonModule,
+    MessageModule,
+  ],
   providers: [DynamicDialogRef, DynamicDialogConfig],
   templateUrl: './new-project.component.html',
   styleUrl: './new-project.component.css',
@@ -23,35 +35,39 @@ export class NewProjectComponent {
   private readonly _dialogRef = inject(DynamicDialogRef);
   private readonly _dialogConfig = inject(DynamicDialogConfig);
 
-  projectForm!: FormGroup;
+  projectForm!: FormGroup; // Initialize the form group
   data!: ProjectBoard;
 
-  constructor(private fb: FormBuilder) {}
-
-  ngOnInit(): void {
+  constructor(private fb: FormBuilder) {
     this.buildForm();
   }
 
+  ngOnInit(): void {}
+
   buildForm() {
     this.projectForm = this.fb.nonNullable.group({
-      name: this.fb.control(this.data.name || '', {
+      name: this.fb.control(this.data?.name || '', {
         validators: [Validators.required],
       }),
       columns: this.fb.array([
         this.fb.nonNullable.group({
-          name: ['Todo', Validators.required],
-          tasks: [[]],
+          columnName: ['Todo', Validators.required],
+          boardItems: [[]],
         }),
         this.fb.nonNullable.group({
-          name: ['Doing', Validators.required],
-          tasks: [[]],
+          columnName: ['Doing', Validators.required],
+          boardItems: [[]],
+        }),
+        this.fb.nonNullable.group({
+          columnName: ['Done', Validators.required],
+          boardItems: [[]],
         }),
       ]),
     });
 
-    if (this.data.columns?.length > 0) {
+    if (this.data?.columns?.length > 0) {
       this.columnArray.clear();
-      this.data.columns.forEach((column) => this.addColumn(column.name));
+      this.data.columns.forEach((column) => this.addColumn(column.columnName));
     }
   }
 
@@ -61,7 +77,7 @@ export class NewProjectComponent {
 
   addColumn(name: string = ''): void {
     const group = this.fb.nonNullable.group({
-      name: [name, Validators.required],
+      columnName: [name, Validators.required],
       boardItems: [[]],
     });
     this.columnArray.push(group);
@@ -72,7 +88,7 @@ export class NewProjectComponent {
   }
 
   submit() {
-    const editMode = !!this.data.name;
+    const editMode = !!this.data?.name;
 
     if (editMode) {
       const updatedBoard: ProjectBoard = {
@@ -80,8 +96,8 @@ export class NewProjectComponent {
         name: this.projectForm.value.name,
         columns: this.projectForm.value.columns.map(
           (column: { name: string }, index: number) => ({
-            name: column.name,
-            tasks: this.data.columns[index]?.boardItems || [],
+            columnName: column.name,
+            boardItems: this.data.columns[index]?.boardItems || [],
           })
         ),
       };
@@ -96,5 +112,7 @@ export class NewProjectComponent {
 
   onSubmit() {}
 
-  onCancel() {}
+  onCancel() {
+    this._dialogRef.close();
+  }
 }
