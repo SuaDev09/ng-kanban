@@ -7,6 +7,7 @@ import { SidebarComponent } from './shared/components/layout/sidebar/sidebar.com
 import { HeaderComponent } from './shared/components/layout/header/header.component';
 import { ProjectsService } from './shared/services/projects/projects.service';
 import { NewProjectComponent } from './shared/components/modals/new-project/new-project.component';
+import { BoardComponent } from './shared/components/board/board.component';
 
 /**
  * The root component of the application.
@@ -22,6 +23,7 @@ import { NewProjectComponent } from './shared/components/modals/new-project/new-
     HeaderComponent,
     ToastModule,
     NewProjectComponent,
+    BoardComponent,
   ],
   providers: [MessageService],
   templateUrl: './app.component.html',

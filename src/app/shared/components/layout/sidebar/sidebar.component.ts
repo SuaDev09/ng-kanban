@@ -63,7 +63,7 @@ export class SidebarComponent implements OnInit {
     console.log('opsfs');
     this._dialogService.open(NewProjectComponent, {
       header: 'New Project',
-      width: '50vw',
+      width: '35vw',
       modal: true,
       closable: true,
       contentStyle: { overflow: 'auto' },

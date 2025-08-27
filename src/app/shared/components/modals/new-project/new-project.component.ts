@@ -14,6 +14,9 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { TextareaModule } from 'primeng/textarea';
 import { MessageModule } from 'primeng/message';
+import { ProjectsService } from '@app/shared/services/projects/projects.service';
+import { Column } from '@app/core/models/column.model';
+import getAbbreviation from '@shared/helpers/get-abbreviation.helper';
 
 @Component({
   selector: 'app-new-project',
@@ -27,13 +30,14 @@ import { MessageModule } from 'primeng/message';
     ButtonModule,
     MessageModule,
   ],
-  providers: [DynamicDialogRef, DynamicDialogConfig],
+  providers: [DynamicDialogConfig],
   templateUrl: './new-project.component.html',
   styleUrl: './new-project.component.css',
 })
 export class NewProjectComponent {
   private readonly _dialogRef = inject(DynamicDialogRef);
   private readonly _dialogConfig = inject(DynamicDialogConfig);
+  private readonly _projectsService = inject(ProjectsService);
 
   projectForm!: FormGroup; // Initialize the form group
   data!: ProjectBoard;
@@ -87,21 +91,22 @@ export class NewProjectComponent {
     this.columnArray.removeAt(index);
   }
 
-  submit() {
-    const editMode = !!this.data?.name;
+  async onSubmit() {
+    const editMode = true;
 
     if (editMode) {
       const updatedBoard: ProjectBoard = {
         ...this.data,
         name: this.projectForm.value.name,
+        abbreviation: getAbbreviation(this.projectForm.value.name),
         columns: this.projectForm.value.columns.map(
-          (column: { name: string }, index: number) => ({
-            columnName: column.name,
-            boardItems: this.data.columns[index]?.boardItems || [],
+          (column: Column, index: number) => ({
+            columnName: getAbbreviation(column.columnName),
+            boardItems: [],
           })
         ),
       };
-
+      await this._projectsService.addNewProject(updatedBoard);
       this._dialogRef.close({ ...updatedBoard });
     }
 
@@ -109,8 +114,6 @@ export class NewProjectComponent {
       this._dialogRef.close({ ...this.projectForm.value });
     }
   }
-
-  onSubmit() {}
 
   onCancel() {
     this._dialogRef.close();

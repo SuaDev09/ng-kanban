@@ -27,7 +27,8 @@
       "@app/*": ["./src/app/*"],
       "@public/*": ["./public/*"],
       "@env/*": ["./src/environments/*"],
-      "@config/*": ["./src/app/config/*"] 
+      "@config/*": ["./src/app/config/*"], 
+      "@shared/*": ["./src/app/shared/*"]
     }
   },
   "angularCompilerOptions": {

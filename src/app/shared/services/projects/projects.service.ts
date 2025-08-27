@@ -1,7 +1,8 @@
 import { inject, Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, firstValueFrom, Observable } from 'rxjs';
 import Project from '@app/core/models/project.model';
 import { ProjectsApiService } from '@app/shared/api/projects/projects.api.service';
+import { ProjectBoard } from '@app/core/models/project-board.model';
 
 /**
  * Service to manage project data in the application.
@@ -17,14 +18,14 @@ export class ProjectsService {
    * A BehaviorSubject to store the list of projects.
    * It allows components to subscribe to project updates.
    */
-  private _projects: BehaviorSubject<Project[]> = new BehaviorSubject<
-    Project[]
+  private _projects: BehaviorSubject<ProjectBoard[]> = new BehaviorSubject<
+    ProjectBoard[]
   >([]);
 
   /**
    * An observable that emits the current list of projects.
    */
-  projects$: Observable<Project[]> = this._projects.asObservable();
+  projects$: Observable<ProjectBoard[]> = this._projects.asObservable();
 
   /**
    * Fetches the list of projects from the API and updates the `_projects` BehaviorSubject.
@@ -39,31 +40,17 @@ export class ProjectsService {
             projectId: 1,
             name: 'Project Alpha',
             abbreviation: 'PA',
-          },
-          {
-            projectId: 2,
-            name: 'Project Beta',
-            abbreviation: 'PB',
-          },
-          {
-            projectId: 3,
-            name: 'Project Gamma',
-            abbreviation: 'PG',
-          },
-          {
-            projectId: 4,
-            name: 'Project Delta',
-            abbreviation: 'PD',
-          },
-          {
-            projectId: 5,
-            name: 'Project Epsilon',
-            abbreviation: 'PE',
+            columns: [],
           },
         ]
       );
     } catch (error) {
       console.error('Failed to fetch projects:', error);
     }
+  }
+
+  async addNewProject(project: ProjectBoard) {
+    const currentProjects = await firstValueFrom(this.projects$);
+    this._projects.next([...currentProjects, project]);
   }
 }

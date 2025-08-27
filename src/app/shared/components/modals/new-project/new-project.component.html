@@ -2,7 +2,9 @@
   <div class="modal">
     <div class="modal-body">
       <div class="input-text">
-        <label for="name">Project Name:</label>
+        <label for="name">
+          <b>Project Name: </b>
+        </label>
         <input
           pInputText
           type="text"
@@ -22,7 +24,9 @@
       </div>
 
       <div class="columns" formArrayName="columns">
-        <label>Columns:</label>
+        <label>
+          <b>Columns: </b>
+        </label>
         <div
           class="column"
           *ngFor="let control of columnArray.controls; let i = index"
@@ -64,7 +68,7 @@
       </div>
     </div>
     <div class="modal-footer">
-      <p-button type="button" (click)="onCancel()"> Cancel </p-button>
+      <p-button label="Close" (click)="onCancel()" />
       <p-button
         type="submit"
         label="Create Project"
