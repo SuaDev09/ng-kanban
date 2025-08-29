@@ -66,6 +66,10 @@ export class SidebarComponent implements OnInit {
       width: '35vw',
       modal: true,
       closable: true,
+      breakpoints: {
+        '900px': '65vw',
+        '700px': '75vw',
+      },
       contentStyle: { overflow: 'auto' },
     });
   }

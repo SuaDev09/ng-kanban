@@ -6,7 +6,11 @@
   />
   <div class="content">
     <app-header />
-    <app-board />
+    <app-board
+      [style]="{
+        'flex-grow': '1'
+      }"
+    />
   </div>
 </div>
 <p-toast [style]="{ 'margin-top': '45px' }" [life]="10000" />

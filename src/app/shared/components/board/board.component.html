@@ -1,1 +1,42 @@
-<p>board works!</p>
+<div class="board">
+  <p-panel
+    [header]="'To Do'"
+    [style]="{
+      width: '38rem',
+      height: '100%'
+    }"
+  >
+    <div
+      cdkDropList
+      #todoList="cdkDropList"
+      [cdkDropListData]="todo"
+      [ngClass]="todo.length > 0 ? 'example-list' : 'example-list empty'"
+      [cdkDropListConnectedTo]="[doneList]"
+      (cdkDropListDropped)="drop($event)"
+    >
+      @for (item of todo; track item) {
+      <p-panel cdkDrag>{{ item }}</p-panel>
+      }
+    </div>
+  </p-panel>
+
+  <p-panel
+    header="Done"
+    [style]="{
+      width: '38rem'
+    }"
+  >
+    <div
+      cdkDropList
+      #doneList="cdkDropList"
+      [cdkDropListData]="done"
+      [cdkDropListConnectedTo]="[todoList]"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)"
+    >
+      @for (item of done; track item) {
+      <div class="example-box" cdkDrag>{{ item }}</div>
+      }
+    </div>
+  </p-panel>
+</div>

@@ -1,0 +1,120 @@
+.example-container {
+  width: 400px;
+  max-width: 100%;
+  margin: 0 25px 25px 0;
+  display: inline-block;
+  vertical-align: top;
+  font-family: sans-serif;
+}
+
+.example-list {
+  border: none;
+  min-height: 400px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);
+}
+.example-list.empty {
+  height: 100%; /* Take the full height of the parent */
+  min-height: 400px; /* Ensure it has a minimum height */
+  width: 100%; /* Take the full width of the parent */
+  border: 2px dashed var(--p-surface-950); /* Borde para modo claro */
+  border-radius: 10px;
+  background-color: transparent; /* Transparent background */
+  box-sizing: border-box; /* Include border in the total size */
+}
+
+/* Estilo para el modo oscuro */
+:host-context(.p-dark-mode) .empty {
+  border: 2px dashed var(--p-surface-100); /* Borde para modo oscuro */
+}
+
+.example-box {
+  padding: 20px 10px;
+  border-bottom: solid 1px #ccc;
+  color: rgba(0, 0, 0, 0.87);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  cursor: move;
+  background: white;
+  font-size: 14px;
+  font-family: sans-serif;
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+    0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-box:last-child {
+  border: none;
+}
+
+.example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.board {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: var(--gap-md);
+}
+p-panel {
+  height: 100%; /* Ensure the panel takes the full height of its parent */
+}
+.empty-column {
+  height: 100%; /* Ocupa todo el espacio disponible */
+  min-height: 200px; /* Altura mínima para el recuadro */
+  width: 100%; /* Ancho completo */
+  border: 2px dashed #ccc; /* Borde discontínuo */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: #f9f9f9; /* Fondo claro */
+  color: #666; /* Color del texto */
+  box-sizing: border-box; /* Incluye el borde en el tamaño total */
+}
+
+.empty-column p {
+  margin: 0 0 1rem 0; /* Espaciado inferior para el texto */
+  font-size: 1rem;
+  color: #333;
+}
+.empty-column {
+  height: 100%; /* Ocupa todo el espacio disponible */
+  min-height: 200px; /* Altura mínima para el recuadro */
+  width: 100%; /* Ancho completo */
+  border: 2px dashed #ccc; /* Borde discontínuo */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: #f9f9f9; /* Fondo claro */
+  color: #666; /* Color del texto */
+  box-sizing: border-box; /* Incluye el borde en el tamaño total */
+}
+
+.empty-column p {
+  margin: 0 0 1rem 0; /* Espaciado inferior para el texto */
+  font-size: 1rem;
+  color: #333;
+}
+/* Estilo para el modo claro */
