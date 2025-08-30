@@ -1,42 +1,45 @@
 <div class="board">
-  <p-panel
-    [header]="'To Do'"
-    [style]="{
-      width: '38rem',
-      height: '100%'
-    }"
-  >
-    <div
-      cdkDropList
-      #todoList="cdkDropList"
-      [cdkDropListData]="todo"
-      [ngClass]="todo.length > 0 ? 'example-list' : 'example-list empty'"
-      [cdkDropListConnectedTo]="[doneList]"
-      (cdkDropListDropped)="drop($event)"
+  <div class="board-header"></div>
+  <div class="board-content">
+    @for (boardItem of boardItems; track boardItem) {
+    <p-panel
+      [header]="boardItem.columnName"
+      [style]="{
+        width: '38rem',
+        height: '100%'
+      }"
     >
-      @for (item of todo; track item) {
-      <p-panel cdkDrag>{{ item }}</p-panel>
-      }
-    </div>
-  </p-panel>
-
-  <p-panel
-    header="Done"
-    [style]="{
-      width: '38rem'
-    }"
-  >
-    <div
-      cdkDropList
-      #doneList="cdkDropList"
-      [cdkDropListData]="done"
-      [cdkDropListConnectedTo]="[todoList]"
-      class="example-list"
-      (cdkDropListDropped)="drop($event)"
-    >
-      @for (item of done; track item) {
-      <div class="example-box" cdkDrag>{{ item }}</div>
-      }
-    </div>
-  </p-panel>
+      <div
+        cdkDropList
+        [id]="boardItem.columnName"
+        [cdkDropListData]="boardItem.items"
+        [ngClass]="
+          boardItem.items.length > 0 ? 'example-list' : 'example-list empty'
+        "
+        [cdkDropListConnectedTo]="getConnnectedColumns(boardItem.columnName)"
+        (cdkDropListDropped)="drop($event)"
+      >
+        @for (item of boardItem.items; track item) {
+        <p-panel
+          class="item-card"
+          [header]="item.title"
+          cdkDrag
+          (click)="itemClick()"
+        >
+          <div class="item">
+            <div class="labels">
+              <p-tag
+                severity="secondary"
+                [value]="'Priority: ' + item.priority"
+              />
+              <p-tag severity="success" [value]="'Effor: ' + item.effort" />
+            </div>
+            <div class="tasks">0 of 3 subtasks</div>
+          </div>
+        </p-panel>
+        }
+      </div>
+    </p-panel>
+    }
+  </div>
 </div>
