@@ -20,16 +20,18 @@ export class ThemeSwitcherComponent {
     { icon: PrimeIcons.SUN, theme: 'p-light-mode' },
     { icon: PrimeIcons.MOON, theme: 'p-dark-mode' },
   ];
-  isDarkMode = false; // Initial theme state
-  toggleDarkMode() {
-    this.isDarkMode = !this.isDarkMode;
+  toggleTheme(event: Event) {
     const element = document.documentElement;
-    if (this.isDarkMode) {
-      element.classList.add('p-dark-mode');
-      this._currentThemeService.setCurrentTheme('dark-theme');
+    const checkbox = event.target as HTMLInputElement;
+    const theme = checkbox.checked ? 'night' : 'light';
+    document.documentElement.setAttribute('data-theme', theme);
+
+    if (checkbox.checked) {
+      element.classList.add('p-dark-mode'); // Add the dark mode class
+      this._currentThemeService.setCurrentTheme('dark-theme'); // Set the dark theme
     } else {
-      element.classList.remove('p-dark-mode');
-      this._currentThemeService.setCurrentTheme('light-theme');
+      element.classList.remove('p-dark-mode'); // Remove the dark mode class
+      this._currentThemeService.setCurrentTheme('light-theme'); // Set the light theme
     }
   }
 }

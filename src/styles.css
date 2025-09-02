@@ -1,5 +1,10 @@
 @import url("@fontsource/montserrat");
+@import "tailwindcss";
+@import "tailwindcss-primeui";
 @import "primeicons/primeicons.css";
+@plugin "daisyui" {
+  themes: night, light --default;
+}
 
 :root {
   --padding-sm: 0.25rem;
