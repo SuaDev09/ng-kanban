@@ -1,32 +1,28 @@
-<div class="board">
-  <div class="board-header"></div>
-  <div class="board-content">
+<div class="w-full h-full flex flex-col gap-3">
+  <div class="p-3"></div>
+  <div class="h-full flex flex-row gap-3 select-none">
     @for (boardItem of boardItems; track boardItem) {
-    <p-panel
-      [header]="boardItem.columnName"
-      class="w-96"
-      [style]="{
-        height: '100%'
-      }"
-    >
+    <p-panel [header]="boardItem.columnName" class="w-96 h-full">
       <div
         cdkDropList
         [id]="boardItem.columnName"
         [cdkDropListData]="boardItem.items"
         [ngClass]="
-          boardItem.items.length > 0 ? 'example-list' : 'example-list empty'
+          boardItem.items.length > 0
+            ? 'min-h-96  overflow-hidden flex flex-col gap-3'
+            : 'h-96 border-2 border-dashed border-primary rounded-lg '
         "
         [cdkDropListConnectedTo]="getConnnectedColumns(boardItem.columnName)"
         (cdkDropListDropped)="drop($event)"
       >
         @for (item of boardItem.items; track item) {
         <p-panel
-          class="item-card"
+          class="cursor-pointer"
           [header]="item.title"
           cdkDrag
           (click)="itemClick()"
         >
-          <div class="item">
+          <div class="flex flex-col gap-3">
             <div class="labels">
               <p-tag
                 severity="secondary"
