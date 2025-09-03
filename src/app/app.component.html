@@ -1,16 +1,8 @@
-<div class="parent-container">
-  <app-sidebar
-    [style]="{
-      padding: 'var(--padding) 0'
-    }"
-  />
-  <div class="content">
+<div class="max-h-dvh h-dvh w-full px-3 flex flex-row gap-3">
+  <app-sidebar class="py-3" />
+  <div class="w-full flex flex-col pb-3">
     <app-header />
-    <app-board
-      [style]="{
-        'flex-grow': '1'
-      }"
-    />
+    <app-board />
   </div>
 </div>
 <p-toast [style]="{ 'margin-top': '45px' }" [life]="10000" />
