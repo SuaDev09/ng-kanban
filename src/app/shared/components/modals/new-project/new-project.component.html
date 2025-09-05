@@ -1,7 +1,7 @@
 <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
-  <div class="modal">
-    <div class="modal-body">
-      <div class="input-text">
+  <div class="flex flex-col gap-3">
+    <div class="flex flex-col gap-3">
+      <div class="flex flex-col gap-3">
         <label for="name">
           <b>Project Name: </b>
         </label>
@@ -9,7 +9,6 @@
           pInputText
           type="text"
           id="name"
-          class="form-control"
           formControlName="name"
           placeholder="Enter project name"
         />
@@ -23,15 +22,15 @@
         >
       </div>
 
-      <div class="columns" formArrayName="columns">
+      <div class="flex flex-col gap-3" formArrayName="columns">
         <label>
           <b>Columns: </b>
         </label>
         <div
-          class="column"
+          class="flex flex-col gap-3"
           *ngFor="let control of columnArray.controls; let i = index"
         >
-          <div class="column-group" formGroupName="{{ i }}">
+          <div class="flex flex-row gap-3" formGroupName="{{ i }}">
             <input
               [style]="{
                 width: '100%'
@@ -67,7 +66,7 @@
         />
       </div>
     </div>
-    <div class="modal-footer">
+    <div class="w-full flex flex-row items-center justify-between">
       <p-button label="Close" (click)="onCancel()" />
       <p-button
         type="submit"
