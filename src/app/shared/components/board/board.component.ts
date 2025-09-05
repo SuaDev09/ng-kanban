@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, inject } from '@angular/core';
 import {
   CdkDragDrop,
   moveItemInArray,
@@ -10,22 +10,26 @@ import { PanelModule } from 'primeng/panel';
 import { CardModule } from 'primeng/card';
 import { CommonModule, NgFor } from '@angular/common';
 import { TagModule } from 'primeng/tag';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ViewTaskComponent } from '../modals/view-task/view-task.component';
 @Component({
   selector: 'app-board',
   standalone: true,
   imports: [
     CommonModule,
-    NgFor,
     CdkDropList,
     CdkDrag,
     PanelModule,
     CardModule,
     TagModule,
   ],
+  providers: [DialogService],
   templateUrl: './board.component.html',
   styleUrl: './board.component.css',
 })
 export class BoardComponent {
+  private readonly _dialogService: DialogService = inject(DialogService);
+
   boardItems: any[] = [
     {
       columnName: 'To Do',
@@ -121,6 +125,16 @@ export class BoardComponent {
       .map((column) => column.columnName); // Return only the column names
   }
   itemClick() {
-    console.log('item was clicked');
+    this._dialogService.open(ViewTaskComponent, {
+      header: 'New Project',
+      width: '65vw',
+      modal: true,
+      closable: true,
+      breakpoints: {
+        '900px': '75vw',
+        '700px': '95vw',
+      },
+      contentStyle: { overflow: 'auto' },
+    });
   }
 }
