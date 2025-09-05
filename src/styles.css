@@ -1,9 +1,10 @@
 @import url("@fontsource/montserrat");
-@import "tailwindcss";
 @import "tailwindcss-primeui";
 @import "primeicons/primeicons.css";
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 @plugin "daisyui" {
-  themes: night, light --default;
+  themes: light --default, night --preferdark;
 }
 
 :root {

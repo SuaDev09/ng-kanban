@@ -27,11 +27,15 @@ export class ThemeSwitcherComponent {
     document.documentElement.setAttribute('data-theme', theme);
 
     if (checkbox.checked) {
+      element.classList.add('dark');
+      element.setAttribute('data-theme', 'night');
       element.classList.add('p-dark-mode'); // Add the dark mode class
       this._currentThemeService.setCurrentTheme('dark-theme'); // Set the dark theme
     } else {
       element.classList.remove('p-dark-mode'); // Remove the dark mode class
       this._currentThemeService.setCurrentTheme('light-theme'); // Set the light theme
+      element.classList.remove('night');
+      element.setAttribute('data-theme', 'light');
     }
   }
 }
