@@ -12,6 +12,8 @@ import { CommonModule, NgFor } from '@angular/common';
 import { TagModule } from 'primeng/tag';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ViewTaskComponent } from '../modals/view-task/view-task.component';
+import { ButtonModule } from 'primeng/button';
+import { TaskFormComponent } from '../modals/task-form/task-form.component';
 @Component({
   selector: 'app-board',
   standalone: true,
@@ -22,6 +24,7 @@ import { ViewTaskComponent } from '../modals/view-task/view-task.component';
     PanelModule,
     CardModule,
     TagModule,
+    ButtonModule,
   ],
   providers: [DialogService],
   templateUrl: './board.component.html',
@@ -126,6 +129,20 @@ export class BoardComponent {
   }
   itemClick() {
     this._dialogService.open(ViewTaskComponent, {
+      header: 'New Project',
+      width: '65vw',
+      modal: true,
+      closable: true,
+      breakpoints: {
+        '900px': '75vw',
+        '700px': '95vw',
+      },
+      contentStyle: { overflow: 'auto' },
+    });
+  }
+
+  newTask() {
+    this._dialogService.open(TaskFormComponent, {
       header: 'New Project',
       width: '65vw',
       modal: true,

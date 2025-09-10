@@ -15,7 +15,7 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 export class ThemeSwitcherComponent {
   private readonly _currentThemeService = inject(CurrentThemeService);
 
-  themeSelected = 'light'; // Default theme
+  themeSelected = 'customLight'; // Default theme
   themeOptions: any[] = [
     { icon: PrimeIcons.SUN, theme: 'p-light-mode' },
     { icon: PrimeIcons.MOON, theme: 'p-dark-mode' },
@@ -23,19 +23,19 @@ export class ThemeSwitcherComponent {
   toggleTheme(event: Event) {
     const element = document.documentElement;
     const checkbox = event.target as HTMLInputElement;
-    const theme = checkbox.checked ? 'night' : 'light';
+    const theme = checkbox.checked ? 'customDark' : 'light';
     document.documentElement.setAttribute('data-theme', theme);
 
     if (checkbox.checked) {
-      element.classList.add('dark');
-      element.setAttribute('data-theme', 'night');
+      element.classList.add('customDark');
+      element.setAttribute('data-theme', 'customDark');
       element.classList.add('p-dark-mode'); // Add the dark mode class
       this._currentThemeService.setCurrentTheme('dark-theme'); // Set the dark theme
     } else {
       element.classList.remove('p-dark-mode'); // Remove the dark mode class
       this._currentThemeService.setCurrentTheme('light-theme'); // Set the light theme
-      element.classList.remove('night');
-      element.setAttribute('data-theme', 'light');
+      element.classList.remove('customDark');
+      element.setAttribute('data-theme', 'customLight');
     }
   }
 }

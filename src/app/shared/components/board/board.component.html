@@ -1,5 +1,13 @@
 <div class="w-full h-full flex flex-col gap-3">
-  <div class="p-3 bg-base-300"></div>
+  <div class="card p-3 flex flex-row items-center justify-between">
+    <div></div>
+    <div>
+      <button class="btn btn-info" (click)="newTask()">
+        <i class="pi pi-plus"></i>
+        New task
+      </button>
+    </div>
+  </div>
   <div class="h-full flex flex-row gap-3 select-none">
     @for (boardItem of boardItems; track boardItem) {
     <p-panel [header]="boardItem.columnName" class="w-96 h-full">
