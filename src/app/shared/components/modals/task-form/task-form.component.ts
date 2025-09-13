@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
 import { EditorModule } from 'primeng/editor';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-task-form',
@@ -14,6 +15,7 @@ import { EditorModule } from 'primeng/editor';
     ButtonModule,
     CheckboxModule,
     EditorModule,
+    InputTextModule,
   ],
   templateUrl: './task-form.component.html',
   styleUrl: './task-form.component.css',

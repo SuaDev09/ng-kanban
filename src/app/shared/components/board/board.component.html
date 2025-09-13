@@ -2,16 +2,21 @@
   <div class="card p-3 flex flex-row items-center justify-between">
     <div></div>
     <div>
-      <button class="btn btn-info" (click)="newTask()">
-        <i class="pi pi-plus"></i>
-        New task
-      </button>
+      <p-button
+        type="submit"
+        label="New Task"
+        icon="pi pi-plus"
+        outlined="true"
+        (onClick)="newTask()"
+      />
     </div>
   </div>
   <div class="h-full flex flex-row gap-3 select-none">
     @for (boardItem of boardItems; track boardItem) {
-    <p-panel [header]="boardItem.columnName" class="w-96 h-full">
-      <div class="h-full">
+    <!-- <p-panel [header]="boardItem.columnName" class="w-96 h-full"> -->
+    <div class="card bg-base-300 w-96 h-full flex flex-col gap-3">
+      <div class="card-body">
+        <h2 class="card-title">{{ boardItem.columnName }}</h2>
         <div
           cdkDropList
           [id]="boardItem.columnName"
@@ -25,10 +30,9 @@
           (cdkDropListDropped)="drop($event)"
         >
           @for (item of boardItem.items; track item) {
-          <p-panel
-            class="cursor-pointer"
-            [header]="item.title"
+          <div
             cdkDrag
+            class="card h-auto bg-base-100 p-3 min-h-32 cursor-pointer"
             (click)="itemClick()"
           >
             <div class="flex flex-col gap-3">
@@ -41,11 +45,19 @@
               </div>
               <div class="tasks">0 of 3 subtasks</div>
             </div>
-          </p-panel>
+          </div>
+          <!-- <p-panel
+            class="cursor-pointer h-auto"
+            [header]="item.title"
+            cdkDrag
+            (click)="itemClick()"
+          >
+          </p-panel> -->
           }
         </div>
       </div>
-    </p-panel>
+    </div>
+    <!-- </p-panel> -->
     }
   </div>
 </div>
