@@ -21,33 +21,53 @@
       <div class="badge badge-soft badge-error">Error</div>
     </div>
   </div>
-  <div class="flex flex-col gap-2">
-    <h2 class="text-lg font-bold">Subtasks:</h2>
-    @for (subtask of subtasks; track $index) {
-    <div class="flex flex-row gap-2 items-center">
-      <p-checkbox
-        [inputId]="$index + ''"
-        name="task"
-        value="completed"
-        [binary]="true"
-        [(ngModel)]="subtask.completed"
-      />
-      <input
-        pInputText
-        type="text"
-        id="name"
-        pSize="small"
-        placeholder="Enter project name"
-        class="w-full"
-      />
-    </div>
-    }
-  </div>
+  <form [formGroup]="form">
+    <div class="flex flex-col gap-2">
+      <h2 class="text-lg font-bold">Subtasks:</h2>
+      <div formArrayName="subtasks" class="flex flex-col gap-2">
+        @for(subtask of subtasks.controls; track $index){
 
-  <div class="flex flex-col gap-1">
-    <h2 class="text-lg font-bold">Description:</h2>
-    <p-editor [(ngModel)]="text" [style]="{ height: '320px' }" />
-  </div>
+        <div [formGroupName]="$index" class="flex flex-row gap-2 items-center">
+          <p-checkbox
+            [inputId]="$index + ''"
+            name="task"
+            value="completed"
+            [binary]="true"
+            formControlName="completed"
+          />
+          <input
+            pInputText
+            type="text"
+            formControlName="task"
+            pSize="small"
+            placeholder="Enter subtask name"
+            class="w-full"
+          />
+          <p-button
+            icon="pi pi-times"
+            text="true"
+            [size]="'small'"
+            (click)="removeSubtask($index)"
+          />
+        </div>
+        }
+      </div>
+      <div class="flex flex-row justify-end">
+        <p-button
+          label="Add New Subtask"
+          icon="pi pi-plus"
+          outlined="true"
+          [size]="'small'"
+          (click)="addSubtask()"
+        />
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-1 mt-4">
+      <h2 class="text-lg font-bold">Description:</h2>
+      <p-editor formControlName="text" [style]="{ height: '320px' }"></p-editor>
+    </div>
+  </form>
 
   <div class="flex flex-row justify-end gap-2">
     <p-button type="submit" label="Close" outlined="true" />

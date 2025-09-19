@@ -14,7 +14,9 @@
   <div class="h-full flex flex-row gap-3 select-none">
     @for (boardItem of boardItems; track boardItem) {
     <!-- <p-panel [header]="boardItem.columnName" class="w-96 h-full"> -->
-    <div class="card bg-base-300 w-96 h-full flex flex-col gap-3">
+    <div
+      class="card bg-base-300 w-96 h-full flex flex-col gap-3 overflow-y-auto"
+    >
       <div class="card-body">
         <h2 class="card-title">{{ boardItem.columnName }}</h2>
         <div
@@ -23,7 +25,7 @@
           [cdkDropListData]="boardItem.items"
           [ngClass]="
             boardItem.items.length > 0
-              ? 'min-h-96 h-full overflow-hidden flex flex-col gap-3'
+              ? 'min-h-96 h-full overflow-hidden flex flex-col gap-3 '
               : 'h-96 border-2 border-dashed border-primary rounded-lg '
           "
           [cdkDropListConnectedTo]="getConnnectedColumns(boardItem.columnName)"
@@ -32,18 +34,29 @@
           @for (item of boardItem.items; track item) {
           <div
             cdkDrag
-            class="card h-auto bg-base-100 p-3 min-h-32 cursor-pointer"
+            class="card h-auto bg-base-100 min-h-32 cursor-pointer"
             (click)="itemClick()"
           >
-            <div class="flex flex-col gap-3">
-              <div class="flex flex-row flex-wrap gap-3">
-                <p-tag
-                  severity="secondary"
-                  [value]="'Priority: ' + item.priority"
-                />
-                <p-tag severity="success" [value]="'Effor: ' + item.effort" />
+            <div class="card">
+              <div class="card-body">
+                <div class="card-title">
+                  {{ item.title }}
+                </div>
+
+                <div class="flex flex-col gap-3">
+                  <div class="flex flex-row flex-wrap gap-3">
+                    <p-tag
+                      severity="secondary"
+                      [value]="'Priority: ' + item.priority"
+                    />
+                    <p-tag
+                      severity="success"
+                      [value]="'Effor: ' + item.effort"
+                    />
+                  </div>
+                  <div class="tasks">0 of 3 subtasks</div>
+                </div>
               </div>
-              <div class="tasks">0 of 3 subtasks</div>
             </div>
           </div>
           <!-- <p-panel

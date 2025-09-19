@@ -1,6 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
 import { EditorModule } from 'primeng/editor';
@@ -12,6 +19,7 @@ import { InputTextModule } from 'primeng/inputtext';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     ButtonModule,
     CheckboxModule,
     EditorModule,
@@ -21,31 +29,37 @@ import { InputTextModule } from 'primeng/inputtext';
   styleUrl: './task-form.component.css',
 })
 export class TaskFormComponent {
-  subtasks: {
-    task: string;
-    completed: boolean;
-  }[] = [
-    {
-      task: 'Task 1',
-      completed: false,
-    },
-    {
-      task: 'Task 2',
-      completed: false,
-    },
-    {
-      task: 'Task 3',
-      completed: true,
-    },
-    {
-      task: 'Task 4',
-      completed: false,
-    },
-    {
-      task: 'Task 5',
-      completed: true,
-    },
-  ];
+  form!: FormGroup;
+
+  get subtasks(): FormArray {
+    return this.form.get('subtasks') as FormArray;
+  }
 
   text!: string;
+
+  constructor(private fb: FormBuilder) {
+    this.form = this.fb.group({
+      subtasks: this.fb.array([
+        this.createSubtask('Task 1', false),
+        this.createSubtask('Task 2', false),
+        this.createSubtask('Task 3', true),
+      ]),
+      text: [''],
+    });
+  }
+
+  createSubtask(task: string = '', completed: boolean = false) {
+    return this.fb.group({
+      task: [task, Validators.required],
+      completed: [completed],
+    });
+  }
+
+  addSubtask() {
+    this.subtasks.push(this.createSubtask());
+  }
+
+  removeSubtask(index: number) {
+    this.subtasks.removeAt(index);
+  }
 }
